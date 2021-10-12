@@ -20,7 +20,50 @@
           auto-complete="on"
         />
       </el-form-item>
-
+      <el-form-item prop="nickname">
+        <span class="svg-container">
+          <i class="el-icon-user" />
+        </span>
+        <el-input
+          v-model="regForm.nickname"
+          placeholder="Nick Name"
+          type="text"
+          tabindex="2"
+        />
+      </el-form-item>
+      <el-form-item prop="phoneNumber">
+        <span class="svg-container">
+          <i class="el-icon-phone" />
+        </span>
+        <el-input
+          v-model="regForm.phoneNumber"
+          placeholder="Phone Number"
+          type="text"
+          tabindex="3"
+        />
+      </el-form-item>
+      <el-form-item prop="email">
+        <span class="svg-container">
+          <i class="el-icon-message" />
+        </span>
+        <el-input
+          v-model="regForm.email"
+          placeholder="Mail"
+          type="text"
+          tabindex="4"
+        />
+      </el-form-item>
+      <el-form-item prop="intro">
+        <span class="svg-container">
+          <i class="el-icon-message" />
+        </span>
+        <el-input
+          v-model="regForm.intro"
+          placeholder="Introduce"
+          type="text"
+          tabindex="5"
+        />
+      </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
@@ -32,7 +75,7 @@
           :type="passwordType"
           placeholder="Password"
           name="password"
-          tabindex="2"
+          tabindex="6"
           auto-complete="on"
           @keyup.enter.native="handleReg"
         />
@@ -51,7 +94,7 @@
           :type="passwordType"
           placeholder="Repeat Password"
           name="password"
-          tabindex="2"
+          tabindex="7"
           auto-complete="on"
           @keyup.enter.native="handleReg"
         />
@@ -61,7 +104,7 @@
       </el-form-item>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" @click.native.prevent="handleReg">Register</el-button>
-      <el-button type="text" style="width:100%;margin-bottom:30px;padding-right:20px;text-align: right;" @click.native.prevent="gotoLogin">Login</el-button>
+      <div style="display: flex;justify-content: flex-end"><el-button type="text" style="margin-bottom:30px;padding-right:20px;text-align: right;" @click.native.prevent="gotoLogin">Login</el-button></div>
     </el-form>
   </div>
 </template>
@@ -92,15 +135,17 @@ export default {
       step: 1,
       regData: '',
       regForm: {
-        'email': 'string',
-        'intro': 'string',
-        'nickName': 'string',
-        'password': 'string',
-        'phoneNumber': 'string',
-        'userName': 'string'
+        'email': '',
+        'intro': '',
+        'nickname': '',
+        'password': '',
+        'rptPassword': '',
+        'phoneNumber': '',
+        'userName': ''
       },
       loginRules: {
         userName: [{ required: true, trigger: 'blur' }],
+        nickname: [{ required: true, trigger: 'blur' }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }],
         rptPassword: [{ required: true, trigger: 'blur', validator: rptPasswordValidator }]
       },
@@ -246,7 +291,7 @@ $light_gray:#eee;
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    padding: 60px 35px 0;
     margin: 0 auto;
     overflow: hidden;
   }
