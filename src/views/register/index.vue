@@ -1,20 +1,20 @@
 <template>
   <div class="login-container">
-    <el-form v-show="step===1" ref="regForm" :model="regForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="regForm" :model="regForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
         <h3 class="title">Register</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="userName">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="regForm.username"
+          ref="userName"
+          v-model="regForm.userName"
           placeholder="Username"
-          name="username"
+          name="userName"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -60,65 +60,7 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" @click.native.prevent="handleReg">Next</el-button>
-      <el-button type="text" style="width:100%;margin-bottom:30px;padding-right:20px;text-align: right;" @click.native.prevent="gotoLogin">Login</el-button>
-    </el-form>
-    <el-form v-show="step===2" ref="regForm2" :model="regForm2" :rules="loginRules2" class="login-form" auto-complete="on" label-position="left">
-
-      <div class="title-container">
-        <h3 class="title">Detail</h3>
-      </div>
-
-      <el-form-item prop="role">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-radio-group v-model="regForm2.role" style="margin-left: 20px">
-          <el-radio label="Admin">Admin</el-radio>
-          <el-radio label="Employee">Employee</el-radio>
-          <el-radio label="Employer">Employer</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item prop="role">
-        <span class="svg-container">
-          <i class="el-icon-s-help" />
-        </span>
-        <el-radio-group v-model="regForm2.status" style="margin-left: 20px">
-          <el-radio label="Finding">Finding</el-radio>
-          <el-radio label="Waiting">Waiting</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item prop="phone">
-        <span class="svg-container">
-          <i class="el-icon-phone" />
-        </span>
-        <el-input
-          v-model="regForm2.phone"
-          placeholder="Phone number"
-          tabindex="5"
-        />
-      </el-form-item>
-      <el-form-item prop="email">
-        <span class="svg-container">
-          <i class="el-icon-message" />
-        </span>
-        <el-input
-          v-model="regForm2.email"
-          placeholder="Email"
-          tabindex="5"
-        />
-      </el-form-item>
-      <el-form-item prop="address">
-        <span class="svg-container">
-          <i class="el-icon-location" />
-        </span>
-        <el-input
-          v-model="regForm2.address"
-          placeholder="Address"
-          tabindex="6"
-        />
-      </el-form-item>
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" @click.native.prevent="confirmReg">Register !</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" @click.native.prevent="handleReg">Register</el-button>
       <el-button type="text" style="width:100%;margin-bottom:30px;padding-right:20px;text-align: right;" @click.native.prevent="gotoLogin">Login</el-button>
     </el-form>
   </div>
@@ -150,32 +92,15 @@ export default {
       step: 1,
       regData: '',
       regForm: {
-        username: '',
-        password: '',
-        rptPassword: ''
+        'email': 'string',
+        'intro': 'string',
+        'nickName': 'string',
+        'password': 'string',
+        'phoneNumber': 'string',
+        'userName': 'string'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur' }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
-        rptPassword: [{ required: true, trigger: 'blur', validator: rptPasswordValidator }]
-      },
-      regForm2: {
-        role: '',
-        phone: '',
-        name: '',
-        email: '',
-        address: '',
-        size: '',
-        sex: '',
-        website: '',
-        description: '',
-        years: '',
-        skills: [],
-        status: ''
-
-      },
-      loginRules2: {
-        username: [{ required: true, trigger: 'blur' }],
+        userName: [{ required: true, trigger: 'blur' }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }],
         rptPassword: [{ required: true, trigger: 'blur', validator: rptPasswordValidator }]
       },
@@ -212,7 +137,8 @@ export default {
           this.loading = true
           register(this.regForm).then(res => {
             this.regData = res
-            this.step = 2
+            // this.step = 2
+            this.$router.push('/login')
             this.loading = false
           }).catch(() => {
             this.loading = false

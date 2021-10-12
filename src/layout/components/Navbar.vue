@@ -1,22 +1,26 @@
 <template>
   <div class="navbar">
-
-    <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
+    <div class="logo">
+      <img class="logo-img" :src="logo" alt="logo">
+    </div>
+    <div v-if="!token">
+      <router-link to="/login">
+        <i class="el-icon-user" style="color: #fff;font-size: 30px;margin:10px"></i>
+      </router-link>
+    </div>
+    <div v-else class="right-menu">
+      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <img v-if="avatar" :src="avatar" class="user-avatar">
+          <i v-else class="el-icon-user" style="color: #fff;font-size: 30px"></i>
+          <i class="el-icon-caret-bottom" style="color:#fff" />
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
+        <el-dropdown-menu slot="dropdown">
+          <router-link to="/home">
+            <el-dropdown-item>Home</el-dropdown-item>
           </router-link>
-          <router-link to="/profile">
-            <el-dropdown-item>
-              Profile
-            </el-dropdown-item>
+          <router-link to="/profile/index">
+            <el-dropdown-item>Profile</el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">Log Out</span>
@@ -29,18 +33,20 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
 
 export default {
-  components: {
-    Breadcrumb,
-    Hamburger
+  data() {
+    return {
+      logo: require('@/assets/logo.png')
+    }
   },
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'device',
+      'name',
+      'token'
     ])
   },
   methods: {
@@ -56,13 +62,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .navbar {
   height: 50px;
   overflow: hidden;
   position: relative;
-  background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
-
+  display: flex;
+  justify-content: space-between;
+  background: #4d575c;
+  .logo{
+    max-width: 120px;
+  }
+  .logo-img{
+    width: 100%;
+  }
   .hamburger-container {
     line-height: 46px;
     height: 100%;
@@ -78,6 +92,11 @@ export default {
 
   .breadcrumb-container {
     float: left;
+  }
+
+  .errLog-container {
+    display: inline-block;
+    vertical-align: top;
   }
 
   .right-menu {

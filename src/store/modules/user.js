@@ -38,7 +38,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const data = response
+        console.log('登陆后的数据', data)
         commit('SET_TOKEN', data.user.user_id)
+        commit('SET_NAME', data.user.name)
+        commit('SET_AVATAR', '')
         setToken(data.user.user_id)
         resolve()
       }).catch(error => {
@@ -78,7 +81,7 @@ const actions = {
       resetRouter()
       commit('RESET_STATE')
       resolve()
-     /* logout(state.token).then(() => {
+      /* logout(state.token).then(() => {
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')

@@ -42,7 +42,9 @@
       </el-form-item>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" @click.native.prevent="handleLogin">Login</el-button>
-      <el-button type="text" style="width:100%;margin-bottom:30px;padding-right:20px;text-align: right;" @click.native.prevent="gotoReg">Register</el-button>
+      <div style="display: flex">
+        <el-button type="text" style="width:100%;margin-left:20px;text-align: left;" @click.native.prevent="gotoHome">Skip</el-button>
+        <el-button type="text" style="width:100%;padding-right:20px;text-align: right;" @click.native.prevent="gotoReg">Register</el-button></div>
     </el-form>
   </div>
 </template>
@@ -82,6 +84,9 @@ export default {
     }
   },
   methods: {
+    gotoHome() {
+      this.$router.push({ path: '/home' })
+    },
     gotoReg() {
       this.$router.push({ path: '/register' })
     },
