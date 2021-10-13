@@ -7,6 +7,13 @@ export function listAll(data) {
     data
   })
 }
+export function addProperty(data) {
+  return request({
+    url: '/add-property',
+    method: 'post',
+    data
+  })
+}
 
 export function getInfo(token) {
   return request({

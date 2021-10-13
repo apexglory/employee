@@ -1,18 +1,20 @@
 <template>
   <div class="navbar">
     <div class="logo">
-      <img class="logo-img" :src="logo" alt="logo">
+      <router-link to="/home">
+        <img class="logo-img" :src="logo" alt="logo">
+      </router-link>
     </div>
     <div v-if="!token">
       <router-link to="/login">
-        <i class="el-icon-user" style="color: #fff;font-size: 30px;margin:10px"></i>
+        <i class="el-icon-user" style="color: #fff;font-size: 30px;margin:10px" />
       </router-link>
     </div>
     <div v-else class="right-menu">
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img v-if="avatar" :src="avatar" class="user-avatar">
-          <i v-else class="el-icon-user" style="color: #fff;font-size: 30px"></i>
+          <i v-else class="el-icon-user" style="color: #fff;font-size: 30px" />
           <i class="el-icon-caret-bottom" style="color:#fff" />
         </div>
         <el-dropdown-menu slot="dropdown">

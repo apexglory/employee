@@ -20,23 +20,23 @@
           auto-complete="on"
         />
       </el-form-item>
-      <el-form-item prop="nickname">
+      <el-form-item prop="nickName">
         <span class="svg-container">
           <i class="el-icon-user" />
         </span>
         <el-input
-          v-model="regForm.nickname"
+          v-model="regForm.nickName"
           placeholder="Nick Name"
           type="text"
           tabindex="2"
         />
       </el-form-item>
-      <el-form-item prop="phoneNumber">
+      <el-form-item prop="phone">
         <span class="svg-container">
           <i class="el-icon-phone" />
         </span>
         <el-input
-          v-model="regForm.phoneNumber"
+          v-model="regForm.phone"
           placeholder="Phone Number"
           type="text"
           tabindex="3"
@@ -137,15 +137,15 @@ export default {
       regForm: {
         'email': '',
         'intro': '',
-        'nickname': '',
+        'nickName': '',
         'password': '',
         'rptPassword': '',
-        'phoneNumber': '',
+        'phone': '',
         'userName': ''
       },
       loginRules: {
         userName: [{ required: true, trigger: 'blur' }],
-        nickname: [{ required: true, trigger: 'blur' }],
+        nickName: [{ required: true, trigger: 'blur' }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }],
         rptPassword: [{ required: true, trigger: 'blur', validator: rptPasswordValidator }]
       },
@@ -183,9 +183,17 @@ export default {
           register(this.regForm).then(res => {
             this.regData = res
             // this.step = 2
+            this.$message({
+              message: 'Register successful!',
+              type: 'success'
+            })
             this.$router.push('/login')
             this.loading = false
           }).catch(() => {
+            this.$message({
+              message: 'Register failed!',
+              type: 'danger'
+            })
             this.loading = false
           })
         } else {

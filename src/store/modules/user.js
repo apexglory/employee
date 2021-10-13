@@ -34,15 +34,15 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { username, password } = userInfo
+    const { email, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login({ email: email.trim(), password: password }).then(response => {
         const data = response
         console.log('登陆后的数据', data)
-        commit('SET_TOKEN', data.user.user_id)
-        commit('SET_NAME', data.user.name)
-        commit('SET_AVATAR', '')
-        setToken(data.user.user_id)
+        commit('SET_TOKEN', data.token)
+        /*    commit('SET_NAME', data.user.name)
+        commit('SET_AVATAR', '')*/
+        setToken(data.token)
         resolve()
       }).catch(error => {
         reject(error)

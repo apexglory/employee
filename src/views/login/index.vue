@@ -1,20 +1,20 @@
 <template>
   <div class="login-container">
+    <img class="logo-img" src="@/assets/logo.png" alt="">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
       <div class="title-container">
         <h3 class="title">Login</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="email">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <i class="el-icon-message" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
+          ref="email"
+          v-model="loginForm.email"
+          placeholder="Email"
+          name="email"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -42,9 +42,9 @@
       </el-form-item>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" @click.native.prevent="handleLogin">Login</el-button>
-      <div style="display: flex">
-        <el-button type="text" style="width:100%;margin-left:20px;text-align: left;" @click.native.prevent="gotoHome">Skip</el-button>
-        <el-button type="text" style="width:100%;padding-right:20px;text-align: right;" @click.native.prevent="gotoReg">Register</el-button></div>
+      <div style="display: flex;justify-content: space-between">
+        <el-button type="text" style="margin-left:20px;text-align: left;" @click.native.prevent="gotoHome">Skip</el-button>
+        <el-button type="text" style="padding-right:20px;text-align: right;" @click.native.prevent="gotoReg">Register</el-button></div>
     </el-form>
   </div>
 </template>
@@ -63,11 +63,11 @@ export default {
     }
     return {
       loginForm: {
-        username: 'newuser',
+        email: 'newuser',
         password: '123456'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur' }],
+        email: [{ required: true, trigger: 'blur' }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
@@ -136,6 +136,9 @@ $cursor: #fff;
 
 /* reset element-ui css */
 .login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .el-input {
     display: inline-block;
     height: 47px;
@@ -175,14 +178,15 @@ $light_gray:#eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-image: linear-gradient(
+      119deg,rgb(48,60,66), rgb(81,91,97));
   overflow: hidden;
 
   .login-form {
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    padding: 60px 35px 0;
     margin: 0 auto;
     overflow: hidden;
   }
@@ -228,5 +232,11 @@ $light_gray:#eee;
     cursor: pointer;
     user-select: none;
   }
+}
+.logo-img{
+  width: 200px;
+  margin-top: 100px;
+  filter: drop-shadow(2px 4px 6px black);
+  border-radius: 10px;
 }
 </style>

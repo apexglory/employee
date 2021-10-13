@@ -16,7 +16,7 @@ export function getInfo(token) {
 }
 export function setInfo(token, data) {
   return request({
-    url: `/profile/${token}`,
+    url: `/update-user`,
     method: 'post',
     data
   })
