@@ -64,11 +64,14 @@ export default {
 
   computed: {
     ...mapGetters([
-      'token'
+      'userInfo'
     ]),
-    owner() {
-      return true
+    isOwner() {
+      return this.$route.params.owner === this.userInfo.uid
     }
+  },
+  mounted() {
+    console.log('router params', this.$route.params, this.userInfo)
   },
   methods: {
     buyNow() {

@@ -6,7 +6,7 @@
       <i class="el-icon-plus" @click="postDialogVisible=true" />
     </div>
     <div class="main">
-      <div v-for="item in propertyData" :key="item.pid" class="product-div">
+      <div v-for="item in propertyData" :key="item.pid" class="product-div" @click="propertyClick(item)">
         <img v-if="item.picUrl" class="property-img" :src="item.picUrl" alt="">
         <i v-else class="el-icon-picture-outline" />
         <div class="title">{{ item.title }}</div>
@@ -134,6 +134,10 @@ export default {
           })
         }
       })
+    },
+    propertyClick(prop) {
+      console.log(prop)
+      this.$router.push({ name: 'PropertyDetail', params: prop })
     }
   }
 }
@@ -204,6 +208,7 @@ export default {
   margin: 10px;
   border: 1px solid #409EFF;
   border-radius: 10px;
+  cursor: pointer;
   .property-img{
     width: 240px;
     height: 240px;

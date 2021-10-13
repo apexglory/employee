@@ -1,13 +1,14 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
-
+import Cookies from 'js-cookie'
 const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
     avatar: '',
-    role: ''
+    role: '',
+    userInfo: ''
   }
 }
 
@@ -28,6 +29,9 @@ const mutations = {
   },
   SET_ROLE: (state, role) => {
     state.role = role
+  },
+  SET_USER_INFO: (state, userInfo) => {
+    state.userInfo = userInfo
   }
 }
 
@@ -40,6 +44,8 @@ const actions = {
         const data = response
         console.log('登陆后的数据', data)
         commit('SET_TOKEN', data.token)
+        commit('SET_USER_INFO', data.user)
+        Cookies.set('userInfo', data.user)
         /*    commit('SET_NAME', data.user.name)
         commit('SET_AVATAR', '')*/
         setToken(data.token)
@@ -49,28 +55,13 @@ const actions = {
       })
     })
   },
-
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const data = response
-
-        if (!data) {
-          return reject('Verification failed, please Login again.')
-        }
-        if (data.employer_id) {
-          commit('SET_ROLE', 'employer')
-        }
-        if (data.employee_id) {
-          commit('SET_ROLE', 'employee')
-        }
-        commit('SET_NAME', data.name)
-        commit('SET_AVATAR', '')
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
+      const userInfo = Cookies.get('userInfo')
+      console.log('getUserInfo', userInfo)
+      commit('SET_USER_INFO', JSON.parse(userInfo))
+      resolve()
     })
   },
 
@@ -79,6 +70,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       removeToken() // must remove  token  first
       resetRouter()
+      Cookies.remove('userInfo')
       commit('RESET_STATE')
       resolve()
       /* logout(state.token).then(() => {
