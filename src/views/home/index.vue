@@ -5,7 +5,14 @@
       <i class="el-icon-search" @click="getAllData" />
       <i class="el-icon-plus" @click="postDialogVisible=true" />
     </div>
-    <div class="main" />
+    <div class="main">
+      <div v-for="item in propertyData" :key="item.pid" class="product-div">
+        <img v-if="item.picUrl" class="property-img" :src="item.picUrl" alt="">
+        <i v-else class="el-icon-picture-outline" />
+        <div class="title">{{ item.title }}</div>
+        <div class="desc">{{ item.description }}</div>
+      </div>
+    </div>
     <el-dialog
       title="Create property"
       :visible.sync="postDialogVisible"
@@ -89,7 +96,8 @@ export default {
         title: [{ required: true, trigger: 'blur' }],
         category: [{ required: true, trigger: 'blur' }]
       },
-      postDialogVisible: false
+      postDialogVisible: false,
+      propertyData: []
     }
   },
   mounted() {
@@ -102,6 +110,7 @@ export default {
       obj.page = this.searchData.page
       listAll(obj).then(res => {
         console.log(res)
+        this.propertyData = res
       })
     },
     createProperty() {
@@ -188,5 +197,35 @@ export default {
   .el-dialog{
     border-radius: 20px!important;
   }
+}
+.product-div{
+  width: 240px;
+  height: 400px;
+  margin: 10px;
+  border: 1px solid #409EFF;
+  border-radius: 10px;
+  .property-img{
+    width: 240px;
+    height: 240px;
+  }
+  .el-icon-picture-outline{
+    font-size: 240px;
+    color: #434343;
+  }
+  .title{
+    padding: 5px 10px;
+    font-size: 18px;
+    height: 28px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .desc{
+    height: 125px;
+    padding: 5px 10px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 }
 </style>
