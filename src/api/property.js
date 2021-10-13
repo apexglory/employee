@@ -15,6 +15,25 @@ export function addProperty(data) {
   })
 }
 
+export function myProperty() {
+  return request({
+    url: '/my-property',
+    method: 'post'
+  })
+}
+export function myBought() {
+  return request({
+    url: '//view-my-bought',
+    method: 'post'
+  })
+}
+export function myFavorite() {
+  return request({
+    url: '/view-favorite',
+    method: 'post'
+  })
+}
+
 export function getInfo(token) {
   return request({
     url: `/profile/${token}`,

@@ -25,8 +25,8 @@
         <el-form-item label="Address" prop="address">
           <el-input v-model.trim="propertyForm.address" />
         </el-form-item>
-        <el-form-item label="Description" prop="password">
-          <el-input v-model.trim="propertyForm.password" type="textarea" />
+        <el-form-item label="Description" prop="description">
+          <el-input v-model.trim="propertyForm.description" type="textarea" />
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -46,10 +46,10 @@ export default {
   data() {
     return {
       searchData: {
-        'dataNum': 0,
+        'dataNum': 20,
         'keyword': '',
         'northeast': 'string',
-        'page': 0,
+        'page': 1,
         'pid': 0,
         'property': {
           'address': 'string',
@@ -97,7 +97,10 @@ export default {
   },
   methods: {
     getAllData() {
-      listAll(this.searchData).then(res => {
+      const obj = this.searchData.keyword ? { keyword: this.searchData.keyword } : {}
+      obj.dataNum = this.searchData.dataNum
+      obj.page = this.searchData.page
+      listAll(obj).then(res => {
         console.log(res)
       })
     },
@@ -106,7 +109,7 @@ export default {
         if (valid) {
           const obj = JSON.parse(JSON.stringify(this.propertyForm))
           addProperty({ property: obj }).then(res => {
-            console.log(res)
+            this.$router.push('/propertyDetail', res.pid)
             this.$message({
               message: 'Create Successful',
               type: 'success',
@@ -133,11 +136,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #e8eff9;
   .search{
-    width: 92%;
+    width: 100%;
     height: 64px;
-    max-width: 720px;
     margin-top: 20px;
     border-radius: 20px;
     position: relative;

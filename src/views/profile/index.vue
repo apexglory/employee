@@ -10,11 +10,14 @@
         <el-col :span="18" :xs="24">
           <el-card>
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="Activity" name="activity">
-                <activity />
+              <el-tab-pane label="My Post" name="activity">
+                <PropertyList type="post" />
               </el-tab-pane>
-              <el-tab-pane label="Timeline" name="timeline">
-                <timeline />
+              <el-tab-pane label="My Bought" name="timeline">
+                <PropertyList type="bought" />
+              </el-tab-pane>
+              <el-tab-pane label="My Favorite" name="favorite">
+                <PropertyList type="favorite" />
               </el-tab-pane>
               <el-tab-pane label="Account" name="account">
                 <account :user="user" />
@@ -31,13 +34,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import UserCard from './components/UserCard'
-import Activity from './components/Activity'
-import Timeline from './components/Timeline'
 import Account from './components/Account'
-
+import PropertyList from '@/views/property/list'
 export default {
   name: 'Profile',
-  components: { UserCard, Activity, Timeline, Account },
+  components: { UserCard, Account, PropertyList },
   data() {
     return {
       user: {},

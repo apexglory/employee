@@ -61,7 +61,6 @@ export const constantRoutes = [
   {
     path: '/profile',
     component: Layout,
-    redirect: '/profile/index',
     hidden: true,
     children: [
       {
@@ -69,6 +68,19 @@ export const constantRoutes = [
         component: () => import('@/views/profile/index'),
         name: 'Profile',
         meta: { title: 'Profile', icon: 'user', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/propertyDetail',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/property/detail'),
+        name: 'PropertyDetail',
+        meta: { title: 'PropertyDetail', icon: 'user', noCache: true }
       }
     ]
   },
