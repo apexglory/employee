@@ -7,10 +7,11 @@
     </div>
     <div class="main">
       <div v-for="item in propertyData" :key="item.pid" class="product-div" @click="propertyClick(item)">
-        <img v-if="item.picUrl" class="property-img" :src="item.picUrl" alt="">
+        <img v-if="item.picUrl" class="property-img" :src="item.picUrl[0]" alt="">
         <i v-else class="el-icon-picture-outline" />
         <div class="title">{{ item.title }}</div>
         <div class="desc">{{ item.description }}</div>
+        <el-button type="text" class="view">View detail →</el-button>
       </div>
     </div>
     <el-dialog
@@ -53,7 +54,7 @@ export default {
   data() {
     return {
       searchData: {
-        'dataNum': 20,
+        'dataNum': 2000,
         'keyword': '',
         'northeast': 'string',
         'page': 1,
@@ -150,7 +151,7 @@ export default {
   flex-direction: column;
   align-items: center;
   .search{
-    width: 100%;
+    width: 98%;
     height: 64px;
     margin-top: 20px;
     border-radius: 20px;
@@ -186,11 +187,14 @@ export default {
   .main{
     width: 100%;
     height: 100%;
-    max-width: 720px;
+    max-width: 1440px;
     min-height: 100vh;
     background: #fff;
     margin-top: 20px;
+    padding: 5px;
     border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 .search-input :focus{
@@ -203,19 +207,25 @@ export default {
   }
 }
 .product-div{
-  width: 240px;
+  width: 216px;
   height: 400px;
   margin: 10px;
   border: 1px solid #409EFF;
   border-radius: 10px;
   cursor: pointer;
+  overflow: hidden;
+  background: aliceblue;
   .property-img{
-    width: 240px;
-    height: 240px;
+    min-width: 214px;
+    min-height: 214px;
+    border-radius: 10px 10px 0 0;
+    vertical-align: baseline;
+    border-bottom: 1px solid #111;
   }
   .el-icon-picture-outline{
-    font-size: 240px;
+    font-size: 214px;
     color: #434343;
+    border-bottom: 1px solid #111;
   }
   .title{
     padding: 5px 10px;
@@ -230,6 +240,11 @@ export default {
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .view{
+    width: 100%;
+    text-align: right;
+    margin: -15px;
   }
 
 }

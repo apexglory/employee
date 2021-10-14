@@ -1,17 +1,18 @@
 <template>
   <el-card style="margin-bottom:20px;">
     <div slot="header" class="clearfix">
-      <span>User</span>
+      <span>User Center</span>
     </div>
 
     <div class="user-profile">
       <div class="box-center">
         <pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
-          <div>Hello</div>
+          <i class="el-icon-user-solid" />
         </pan-thumb>
       </div>
+
       <div class="box-center">
-        <div class="user-name text-center">{{ user.name }}</div>
+        <div class="user-name text-center">Hello,{{ userInfo.nickName }}</div>
       </div>
     </div>
   </el-card>
@@ -19,6 +20,7 @@
 
 <script>
 import PanThumb from '@/components/PanThumb'
+import { mapGetters } from 'vuex'
 
 export default {
   components: { PanThumb },
@@ -33,6 +35,14 @@ export default {
           role: ''
         }
       }
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo'
+    ]),
+    isOwner() {
+      return this.propertyForm.owner === this.userInfo.uid
     }
   }
 }
@@ -95,5 +105,8 @@ export default {
       font-weight: bold;
     }
   }
+}
+.el-icon-user-solid{
+  font-size: 50px;
 }
 </style>

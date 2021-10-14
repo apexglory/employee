@@ -55,7 +55,7 @@
       </el-form-item>
       <el-form-item prop="intro">
         <span class="svg-container">
-          <i class="el-icon-message" />
+          <i class="el-icon-s-promotion" />
         </span>
         <el-input
           v-model="regForm.intro"

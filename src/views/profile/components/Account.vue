@@ -59,12 +59,12 @@ export default {
     }
     return {
       regForm: {
-        'email': '',
-        'intro': '',
-        'nickName': this.name,
+        'email': this.userInfo && this.userInfo.email || '',
+        'intro': this.userInfo && this.userInfo.intro || '',
+        'nickName': this.userInfo && this.userInfo.nickName || '',
         'password': '',
         'rptPassword': '',
-        'phone': ''
+        'phone': this.userInfo && this.userInfo.phone || ''
       },
       loginRules: {
         email: [{ required: true, trigger: 'blur' }],
@@ -76,8 +76,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'token'
+      'token',
+      'userInfo'
     ])
+  },
+  mounted() {
+    this.regForm = Object.assign(this.regForm, this.userInfo)
   },
   methods: {
     submit() {

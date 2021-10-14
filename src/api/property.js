@@ -14,6 +14,28 @@ export function addProperty(data) {
     data
   })
 }
+export function editProperty(data) {
+  return request({
+    url: '/update-property',
+    method: 'post',
+    data
+  })
+}
+export function buyProperty(data) {
+  return request({
+    url: '/purchase-property',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteProperty(data) {
+  return request({
+    url: '/remove-property',
+    method: 'post',
+    data
+  })
+}
 
 export function myProperty() {
   return request({
@@ -23,8 +45,15 @@ export function myProperty() {
 }
 export function myBought() {
   return request({
-    url: '//view-my-bought',
+    url: '/view-my-bought',
     method: 'post'
+  })
+}
+export function getPropertyById(data) {
+  return request({
+    url: '/view-property-pid',
+    method: 'post',
+    data
   })
 }
 export function myFavorite() {
